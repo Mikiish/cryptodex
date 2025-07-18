@@ -3,7 +3,10 @@
 Ce document décrit brièvement le fonctionnement du petit module LISP d’authentification basé sur `scthsh.lisp`.
 
 Son objectif est de fournir une preuve d’authenticité cryptographique en utilisant un token système combiné à une entrée externe.
-
+Visit the following repos :
+[https://github.com/Mikiish/Clisa]
+[https://github.com/Mikiish/Lisa]
+[https://github.com/Mikiish/ai_sprint_paris_mfork]
 ---
 
 ## 🧩 Fonctionnement
