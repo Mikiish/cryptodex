@@ -52,6 +52,7 @@ codex-ssh() {
       export TOKEN_HASH=$TOKEN
       OUTPUT_KEY='  "OPENAI_API_KEY": "'"$TOKEN_HASH"'",'
       sed -i "2s/.*/$OUTPUT_KEY/" "$JSON_FILE"
+      
       exit 1
       fi
     fi
