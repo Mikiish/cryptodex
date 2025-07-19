@@ -3,7 +3,7 @@ set -e
 
 echo "[+] Updating Package..."
 sudo apt update -y
-sudo apt install -y npm curl git jq
+sudo apt install -y npm
 echo "[+] Cloning repo from source..."
 DIR="codex"
 DIR_DEV="codex-dev"
@@ -36,12 +36,10 @@ npm install -g @openai/codex
 if [ -d .git ]; then
   gitpath="$(git rev-parse --show-toplevel)"
   mkdir -p "$gitpath/.codex"
-  cdxpath="$gitpath/.codex"
-else
-  cdxpath="$HOME/.codex"
 fi
+cdxpath="$HOME/.codex"
 mkdir -p "$cdxpath"
-export OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
+export OPENAI_API_KEY="${ secrets.OPENAI_API_KEY }"
 cat <<EOF > "$cdxpath/auth.json"
 {
   "OPENAI_API_KEY": "$OPENAI_API_KEY"
@@ -53,7 +51,13 @@ if [ -z $USER_INPUT ]; then
 else
   echo "[+] Using user input: $USER_INPUT"
 fi
+touch "$cdxpath/config.toml"
+printf 'model = "codex-mini-latest"\n' >> "$cdxpath/config.toml"
+printf 'model_reasoning_effort = "high"\n' >> "$cdxpath/config.toml"
+printf 'approval_policy = "on-failure"\n' >> "$cdxpath/config.toml"
+printf 'sandbox_mode = "workspace-write"\n' >> "$cdxpath/config.toml"
 gnome-terminal -- bash -c "codex exec \"$USER_INPUT\"; exec bash"
+
 
 echo "[+] Codex installed, run \"[codex login]\" to authenticate your ChatGPT account. Then do the following steps :"
 echo "[+] 1) Create ~/.codex/config.toml file to setup your models and parameters."
