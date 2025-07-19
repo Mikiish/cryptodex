@@ -27,8 +27,9 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 echo "[+] NVM installed, loading nvm..."
 export NVM_DIR="$HOME/.nvm"
 . "$NVM_DIR/nvm.sh"
-nvm install 22
-nvm use 22
+nvm install 24
+nvm use 24
+nvm alias default 24
 
 echo "[+] Installing codex from node."
 npm install -g @openai/codex
