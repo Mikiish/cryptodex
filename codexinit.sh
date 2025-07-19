@@ -34,19 +34,19 @@ nvm alias default 24
 echo "[+] Installing codex from node."
 npm install -g @openai/codex
 if [ -d .git ]; then
-  local gitpath="$(git rev-parse --show-toplevel)"
+  gitpath="$(git rev-parse --show-toplevel)"
   mkdir -p "$gitpath/.codex"
-cdxpath="$HOME/.codex"
+  cdxpath="$gitpath/.codex"
+else
+  cdxpath="$HOME/.codex"
 fi
 mkdir -p "$cdxpath"
-if [ ! -d "$cdxpath/.codex" ]; then
-  mkdir -p "$cdxpath/.codex"
-  cat <<EOF > "$cdxpath/auth.json"
-  {
-    "OPENAI_API_KEY": "${{ secrets.CODEX_MIKIISH_KEY }}"
-  }
+export OPENAI_API_KEY="${{ secrets.CODEX_MIKIISH_KEY }}"
+cat <<EOF > "$cdxpath/auth.json"
+{
+  "OPENAI_API_KEY": "$OPENAI_API_KEY"
+}
 EOF
-fi
 if [ -z $USER_INPUT ]; then
   echo "[!] USER_INPUT is not set, using default command."
   export USER_INPUT='Lance envstp/dft_cfg.sh pour installer python, clone le repo git mikiish/Lisa, puis créer un venv python stp.'
