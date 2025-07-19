@@ -38,32 +38,11 @@ if [ -d .git ]; then
   mkdir -p "$gitpath/.codex"
 fi
 cdxpath="$HOME/.codex"
-mkdir -p "$cdxpath"
-export OPENAI_API_KEY="${ secrets.OPENAI_API_KEY }"
-cat <<EOF > "$cdxpath/auth.json"
-{
-  "OPENAI_API_KEY": "$OPENAI_API_KEY"
-}
-EOF
-if [ -z $USER_INPUT ]; then
-  echo "[!] USER_INPUT is not set, using default command."
-  export USER_INPUT='Lance envstp/dft_cfg.sh pour installer python, clone le repo git mikiish/Lisa, puis créer un venv python stp.'
-else
-  echo "[+] Using user input: $USER_INPUT"
-fi
 touch "$cdxpath/config.toml"
 printf 'model = "codex-mini-latest"\n' >> "$cdxpath/config.toml"
 printf 'model_reasoning_effort = "high"\n' >> "$cdxpath/config.toml"
 printf 'approval_policy = "on-failure"\n' >> "$cdxpath/config.toml"
 printf 'sandbox_mode = "workspace-write"\n' >> "$cdxpath/config.toml"
-gnome-terminal -- bash -c "codex exec \"$USER_INPUT\"; exec bash"
 
 
-echo "[+] Codex installed, run \"[codex login]\" to authenticate your ChatGPT account. Then do the following steps :"
-echo "[+] 1) Create ~/.codex/config.toml file to setup your models and parameters."
-echo "[+] --- Visit [codex/blob/rust-v0.8.0/codex-cli/src/utils/model-info.ts] file for more informations on models availables."
-echo "[+] 2) You can authenticate using API keys for automatic completion using agents such as well... Codex itself. Ah!"
-echo "[+] --- See openai official documentation here : [https://github.com/openai/codex/?tab=readme-ov-file]"
-echo "[+] 3) Create a ~/your-project-repo/.codex folder and create an AGENT.md file."
-echo "[+] --- From your project folder, write a haiku." 
-echo "[+] --- Example : see examples.md"
+
