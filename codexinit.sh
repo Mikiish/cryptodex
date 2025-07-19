@@ -2,8 +2,8 @@
 set -e
 
 echo "[+] Updating Package..."
-sudo apt update
-sudo apt install npm curl git
+sudo apt update -y
+sudo apt install -y npm curl git
 echo "[+] Cloning repo from source..."
 DIR="codex"
 DIR_DEV="codex-dev"
