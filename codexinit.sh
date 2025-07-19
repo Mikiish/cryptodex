@@ -24,13 +24,12 @@ fi
 
 echo "[+] Curling nvm version from github.com..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc  # ou ~/.zshrc selon ton shell
-
+echo "[+] NVM installed, loading nvm..."
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "$NVM_DIR/nvm.sh"
 nvm install 22
 nvm use 22
+
 echo "[+] Installing codex from node."
 npm install -g @openai/codex
 echo "[+] Codex installed, run \"[codex login]\" to authenticate your ChatGPT account. Then do the following steps :"
