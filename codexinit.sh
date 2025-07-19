@@ -41,7 +41,7 @@ else
   cdxpath="$HOME/.codex"
 fi
 mkdir -p "$cdxpath"
-export OPENAI_API_KEY="${{ secrets.CODEX_MIKIISH_KEY }}"
+export OPENAI_API_KEY="${{ secrets.OPENAI_API_KEY }}"
 cat <<EOF > "$cdxpath/auth.json"
 {
   "OPENAI_API_KEY": "$OPENAI_API_KEY"
