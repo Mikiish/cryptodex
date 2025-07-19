@@ -4,6 +4,3 @@
 
 ;; Dépendances Cryptodex
 (ql:quickload '(:ironclad :babel :uiop :alexandria :cl-ppcre))
-
-;; Ton programme principal (décommente / ajuste)
-;; (load "secret_hash.lisp")

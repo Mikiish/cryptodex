@@ -1,0 +1,22 @@
+
+codex-ssh() {
+    # Ensure no argument is pass, avoiding nilch injections.
+    if [ ! -z "$1" ]; then
+        return 1
+    fi
+    local time=$(date "+%s")
+    if [ -d .git ]; then
+        local gitpath="$(git rev-parse --show-toplevel)"
+        logpath="$gitpath/.codex/agents-logs"
+    else
+        local logpath="$HOME/.codex/agents-logs"
+    fi
+    if [ ! -d "$logpath" ]; then
+        mkdir -p "$logpath"
+        touch "$logpath/agent-$time.log"
+    fi
+    # Load variable in sandboxed environment.
+    (
+        OPENAI_API_KEY="${{ secrets.CODEX_MIKIISH_KEY }}"
+        cat $(codex exec )
+}

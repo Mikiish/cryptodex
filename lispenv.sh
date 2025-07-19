@@ -26,12 +26,8 @@ cat > cryptodex-init.lisp <<'EOF'
 ;; Charge Quicklisp (pré-installé)
 (load (merge-pathnames "quicklisp/setup.lisp"
                        (user-homedir-pathname)))
-
 ;; Dépendances Cryptodex
 (ql:quickload '(:ironclad :babel :uiop :alexandria :cl-ppcre))
-
-;; Ton programme principal (décommente / ajuste)
-;; (load "secret_hash.lisp")
 EOF
 
 echo "[✔] Installation terminée."
