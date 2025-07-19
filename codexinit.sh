@@ -3,7 +3,7 @@ set -e
 
 echo "[+] Updating Package..."
 sudo apt update -y
-sudo apt install -y npm curl git
+sudo apt install -y npm curl git jq
 echo "[+] Cloning repo from source..."
 DIR="codex"
 DIR_DEV="codex-dev"
@@ -33,6 +33,28 @@ nvm alias default 24
 
 echo "[+] Installing codex from node."
 npm install -g @openai/codex
+if [ -d .git ]; then
+  local gitpath="$(git rev-parse --show-toplevel)"
+  mkdir -p "$gitpath/.codex"
+cdxpath="$HOME/.codex"
+fi
+mkdir -p "$cdxpath"
+if [ ! -d "$cdxpath/.codex" ]; then
+  mkdir -p "$cdxpath/.codex"
+  cat <<EOF > "$cdxpath/auth.json"
+  {
+    "OPENAI_API_KEY": "${{ secrets.CODEX_MIKIISH_KEY }}"
+  }
+EOF
+fi
+if [ -z $USER_INPUT ]; then
+  echo "[!] USER_INPUT is not set, using default command."
+  export USER_INPUT='Lance envstp/dft_cfg.sh pour installer python, clone le repo git mikiish/Lisa, puis créer un venv python stp.'
+else
+  echo "[+] Using user input: $USER_INPUT"
+fi
+gnome-terminal -- bash -c "codex exec \"$USER_INPUT\"; exec bash"
+
 echo "[+] Codex installed, run \"[codex login]\" to authenticate your ChatGPT account. Then do the following steps :"
 echo "[+] 1) Create ~/.codex/config.toml file to setup your models and parameters."
 echo "[+] --- Visit [codex/blob/rust-v0.8.0/codex-cli/src/utils/model-info.ts] file for more informations on models availables."

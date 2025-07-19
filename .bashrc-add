@@ -19,4 +19,5 @@ codex-ssh() {
     (
         OPENAI_API_KEY="${{ secrets.CODEX_MIKIISH_KEY }}"
         cat $(codex exec )
+    )
 }
